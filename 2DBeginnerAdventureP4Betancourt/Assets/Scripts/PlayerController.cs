@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float timeInvinible = 2.0f;
-    bool isInvincible;
-    float damageCooldown;
     public float speed = 3.0f;
+
     public int maxHealth = 5;
+    public float timeInvinible = 2;
+
     public int health { get { return currentHealth; } }
     int currentHealth;
-
-
+    
+    bool isInvincible;
+    float invincibleTimer;
+   
     Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
@@ -30,10 +32,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+        
         if (isInvincible)
         {
-            damageCooldown -= Time.deltaTime;
-            if (damageCooldown < 0)
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer < 0)
             {
                 isInvincible = false;
             }
@@ -60,7 +63,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             isInvincible = true;
-            damageCooldown = timeInvinible;
+            invincibleTimer = timeInvinible;
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
