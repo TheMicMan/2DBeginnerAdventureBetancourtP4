@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 3.0f;
 
     public int maxHealth = 5;
-    public float timeInvinible = 2;
+    public float timeInvinible = 2.0f;
 
     public int health { get { return currentHealth; } }
     int currentHealth;
@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (amount < 0)
         {
+            animator.SetTrigger("Hit");
             if (isInvincible)
             {
                 return;
